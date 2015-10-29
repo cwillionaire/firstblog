@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<% Time::DATE_FORMATS[:just_date] = "%b %d, %Y" %>
+<% Time::DATE_FORMATS[:just_time] = "%I:%M%p" %>
+
+
+<h1>Blog Me Later</h1>
+
+  <div class="row">
+    <% @blog_posts.each do |blog_post| %>
+      <div class="col-sm-6">
+       <div class="panel panel-default">
+        <div class="panel-heading">
+         <h2><%= link_to blog_post.title, blog_post %></h2>
+         <div class = "panel-body">
+         <p>By: <%= blog_post.author %></p>
+         <p>At: <%= blog_post.created_at.to_s (:just_date) %>, <%= blog_post.created_at.to_s (:just_time) %></p>
+         <p><%= blog_post.blog_entry[0...250] %>...<%= link_to "READ MORE", blog_post %></p>
+         </div>
+         <div class="btn-footer">
+          <%= link_to 'Edit', edit_blog_post_path(blog_post), class: "btn btn-warning" %>
+          <%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+         </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'New Blog Post', new_blog_post_path, class: "btn btn-primary", align: "center" %>
